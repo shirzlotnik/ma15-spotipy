@@ -15,4 +15,5 @@ NAME = 'name'
 ID = 'id'
 POPULARITY = 'popularity'
 
-USERS_INFORMATION = ''
+TRACKS_LIMIT = 20
+PLAYLISTS_LIMIT = 5

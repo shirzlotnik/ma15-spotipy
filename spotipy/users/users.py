@@ -1,31 +1,44 @@
 from spotipy.models import *
 import logging
 from spotipy.spotipy_data import *
-
-
-class LoginInfo:
-    def __init__(self, username, password=None):
-        self.username = username
-        self.password = password
+from users.config import *
+from spotipy.models import *
+import logging
 
 
 class User:
-    def __init__(self, login_info: LoginInfo, premium=False):
-        self.login_info = login_info
-        self.playlist = []
-        self.playlist_names = []
-        self.premium = premium
+    def __init__(self, username, password, type, playlists=[], albums=[]):
+        self.username = username
+        self.password = password
+        self.type = type
+        self.playlists = playlists
+        self.albums = albums
 
+    def to_json(self):
+        if self.type is not ARTIST:
+            json_obj = {USERNAME: self.username, PASSWORD: self.password, TYPE: self.type, PLAYLISTS: self.playlists}
+        else:
+            json_obj = {USERNAME: self.username, PASSWORD: self.password, TYPE: self.type, PLAYLISTS: self.playlists,
+                        ALBUMS: self.albums}
 
-class ArtistUser(User):
-    def __init__(self, login_info: LoginInfo):
-        super.__init__(login_info, True)
-        self.albums = []
-        self.albums_names = []
+        return json_obj
 
-    def add_artist_albums(self, spotipy: SpotipyData):
-        logging.debug('adding artist user its albums')
-        for artist in spotipy.artists:
-            if artist.name == self.login_info.username:
-                self.albums += artist.albums
+    def create_playlist(self, name):
+        for playlist in self.playlists:
+            if playlist.name is name:
+                logging.error('playlist name already exists')
+                return
+
+        if self.type is ANONYMOUS:
+            playlist = Playlist(name)
+        elif self.type is PREMIUM:
+            playlist = Playlist(name, False)
+
+        self.playlists.append(playlist)
+
+    def add_track_to_playlist(self, name, track):
+        for playlist in self.playlists:
+            if playlist.name is name:
+                playlist.add_track(track)
+
 

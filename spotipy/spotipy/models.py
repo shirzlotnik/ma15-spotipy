@@ -1,6 +1,6 @@
 from typing import List
 from spotipy.config import *
-
+from uuid import uuid4
 
 class Artist:
     def __init__(self, id: str, name: str):
@@ -62,6 +62,18 @@ class Track:
 
 
 class Playlist:
-    def __init__(self, name, tracks=[]):
-        self.tracks = tracks
+    def __init__(self, name, limit=True):
+        self.tracks = []
         self.name = name
+        self.limit = limit
+
+    def add_track(self, track):
+        if self.limit:
+            if len(self.tracks) > TRACKS_LIMIT:
+                print('you have reach the maximum amount of tracks in playlist, to add more consider upgrading to '
+                      'premium')
+                logging.exception('user try to add invalid number of tracks to playlist')
+                return
+            
+        self.tracks.append(track)
+

@@ -1,16 +1,17 @@
 from models import *
 import logging
 from users.users import *
+from spotipy.config import *
 
 
 def playlist_validation_for_user(user: User, playlist: Playlist):
     logging.debug('checking user authentication')
     if not user.premium:
-        if len(user.playlist) > 5:
+        if len(user.playlist) > PLAYLISTS_LIMIT:
             print(f'you have reached the maximum amount of playlist, to add more consider upgrading to premium')
             return False
 
-        if len(playlist.tracks) > 20:
+        if len(playlist.tracks) > TRACKS_LIMIT:
             print(f'a playlist can have up to 20 tracks, to add more consider upgrading to premium')
             return False
 

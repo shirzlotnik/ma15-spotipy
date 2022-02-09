@@ -2,11 +2,9 @@ import json
 import logging
 import glob
 from spotipy.config import *
-from spotipy.models import *
-import os
 from spotipy import extract
 from spotipy.config import *
-
+from flask_app import run
 
 
 def print_hi(name):
@@ -19,4 +17,5 @@ if __name__ == '__main__':
     logging.basicConfig(filename=LOGS_FILE_PATH, level=LOG_LEVEL, format=LOG_FORMAT)
 
     extract()
+    run()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
