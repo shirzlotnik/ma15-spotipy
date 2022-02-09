@@ -1,6 +1,7 @@
 from models import *
 from extract_and_parse import *
 import glob
+import logging
 import json
 
 

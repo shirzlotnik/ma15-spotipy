@@ -25,6 +25,7 @@ def update_models_parameters(track: Track, album: Album, artists: List[Artist]):
 
     for artist in artists:
         artist.add_album(album)
+        artist.add_track(track)
 
     return track, album, artists
 

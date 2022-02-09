@@ -7,9 +7,13 @@ class Artist:
         self.name = name
         self.albums = []
         self.genre = ''
+        self.tracks = []
 
     def add_album(self, album):
         self.albums.append(album)
+
+    def add_track(self, track):
+        self.tracks.append(track)
 
 
 class Album:

@@ -25,9 +25,12 @@ if __name__ == '__main__':
     li = ['a', 'b', 'c']
     li4 = []
     li2 = list(map(lambda x: x+'r', li))
-    for i in li:
-        li4.append(i)
+
     print(li2)
-    print(li4)
+    print(li4[:4])
+    if 5 in li4:
+        print('dasdac')
+        for x in li4:
+            print(x)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

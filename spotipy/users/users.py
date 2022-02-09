@@ -31,14 +31,10 @@ class User:
     def add_playlist_decorator(self, add_playlist):
         def inner(playlist: Playlist):
             if self.playlist_validation_for_user(playlist):
-                if len(self.playlist) == 0:
-                    add_playlist(playlist)
-
+                if playlist.name in self._playlist_names:
+                    print(f'playlist {playlist.name} already exist')
                 else:
-                    if playlist.name in self._playlist_names:
-                        print(f'playlist {playlist.name} already exist')
-                    else:
-                        add_playlist(playlist)
+                    add_playlist(playlist)
 
         return inner
 
