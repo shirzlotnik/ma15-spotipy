@@ -1,43 +1,44 @@
-from models import *
-from extract_and_parse import *
+from spotipy.models import *
+from spotipy.extract_and_parse import *
 import glob
 import logging
 import json
+from collections import defaultdict
+from typing import List
 
 
 class SpotipyData:
     def __init__(self):
-        self.tracks = []
-        self.albums = []
-        self.artists = []
+        self.tracks = {}
+        self.albums = {}
+        self.artists = {}
 
-    def extract(self):
-        logging.info('extracting data from songs directory')
-        json_files_paths = glob.glob(SONGS_PATH_GLOB)
-        for json_file_path in json_files_paths:
-            with open(json_file_path, 'r') as json_file:
-                logging.debug('reading json file from directory')
-                data = json.load(json_file)
-                track, album, artists = parse_json_track(data)
-                self._add_track(track)
-                self._add_album(album)
-                for artist in artists:
-                    self._add_artist(artist)
-
-    def _add_track(self, track: Track):
-        if track in self.tracks:
+    def add_track(self, track: Track):
+        if track.id in self.tracks.keys():
             print(f'track: {track} already exist in db')
+            logging.exception('user enter an existing track')
         else:
-            self.tracks.append(track)
+            self.tracks[track.id] = track
+            logging.debug(f'successfully added track {track}')
 
-    def _add_album(self, album: Album):
-        if album in self.albums:
+    def add_album(self, album: Album):
+        if album.id in self.albums.keys():
             print(f'album: {album} already exist in db')
         else:
-            self.albums.append(album)
+            self.albums[album.id] = album
+            logging.debug(f'successfully added album {album}')
 
-    def _add_artist(self, artist: Artist):
-        if artist in self.artists:
-            print(f'artist: {artist} already exist in db')
-        else:
-            self.artists.append(artist)
+    def add_artists(self, artists: List[Artist]):
+        for artist in artists:
+            if artist.id in self.artists.keys():
+                print(f'artist: {artist} already exist in db')
+            else:
+                self.artists[artist.id] = artist
+                logging.debug(f'successfully added artist {artist}')
+
+    #def process_data(self):
+
+    def process_albums_data(self):
+        for track in self.tracks.values():
+            if track.album_id in self.albums.keys():
+                Album(self.albums[track.album_id]).add_track(track.id)

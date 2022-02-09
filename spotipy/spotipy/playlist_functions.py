@@ -3,10 +3,10 @@ import logging
 from users.users import *
 
 
-def playlist_validation_for_user(playlist: Playlist):
+def playlist_validation_for_user(user: User, playlist: Playlist):
     logging.debug('checking user authentication')
-    if not self.premium:
-        if len(self.playlist) > 5:
+    if not user.premium:
+        if len(user.playlist) > 5:
             print(f'you have reached the maximum amount of playlist, to add more consider upgrading to premium')
             return False
 
@@ -16,20 +16,23 @@ def playlist_validation_for_user(playlist: Playlist):
 
     return True
 
-def add_playlist_decorator(self, add_playlist):
-    def inner(playlist: Playlist):
-        if self.playlist_validation_for_user(playlist):
-            if playlist.name in self._playlist_names:
+
+def add_playlist_decorator(add_playlist):
+    def inner(user, playlist: Playlist):
+        if playlist_validation_for_user(user, playlist):
+            if playlist.name in user.playlist_names:
                 print(f'playlist {playlist.name} already exist')
+                logging.exception('user entered invalid playlist name')
             else:
                 add_playlist(playlist)
 
     return inner
 
+
 @add_playlist_decorator
-def add_playlist(self, playlist: Playlist):
+def add_playlist(user, playlist: Playlist):
     logging.debug('adding playlist')
-    self.playlist.append(playlist)
-    self._playlist_names.append(playlist.name)
+    user.playlist.append(playlist)
+    user.playlist_names.append(playlist.name)
     print(f'playlist {playlist.name} added successfully')
 
