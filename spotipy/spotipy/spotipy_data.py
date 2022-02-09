@@ -11,6 +11,7 @@ class SpotipyData:
         self.artists = []
 
     def extract(self):
+        logging.info('extracting data from songs directory')
         json_files_paths = glob.glob(SONGS_PATH_GLOB)
         for json_file_path in json_files_paths:
             with open(json_file_path, 'r') as json_file:
