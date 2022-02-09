@@ -6,6 +6,7 @@ class Artist:
         self.id = id
         self.name = name
         self.albums = []
+        self.genre = ''
 
     def add_album(self, album):
         self.albums.append(album)

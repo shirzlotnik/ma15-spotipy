@@ -13,5 +13,8 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
     print(glob.glob(SONGS_PATH_GLOB))
+    li = list(range(3))
+    li2 = list(map(lambda x: x+3, li))
+    print(li2)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
