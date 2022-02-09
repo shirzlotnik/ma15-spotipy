@@ -14,3 +14,5 @@ ARTISTS = 'artists'
 NAME = 'name'
 ID = 'id'
 POPULARITY = 'popularity'
+
+USERS_INFORMATION = ''

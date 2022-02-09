@@ -35,3 +35,9 @@ class Track:
 
     def add_artists(self, artists: List[Artist]):
         self.artists = artists
+
+
+class Playlist:
+    def __init__(self, name, tracks=[]):
+        self.tracks = tracks
+        self.name = name
