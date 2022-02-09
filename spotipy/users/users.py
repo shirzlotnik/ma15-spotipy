@@ -1,5 +1,6 @@
 from spotipy.models import *
 import logging
+from spotipy.spotipy_data import *
 
 
 class LoginInfo:
@@ -44,4 +45,17 @@ class User:
         self.playlist.append(playlist)
         self._playlist_names.append(playlist.name)
         print(f'playlist {playlist.name} added successfully')
+
+
+class ArtistUser(User):
+    def __init__(self, login_info: LoginInfo):
+        super.__init__(login_info, True)
+        self.albums = []
+        self.albums_names = []
+
+    def add_artist_albums(self, spotipy: SpotipyData):
+        logging.debug('adding artist user its albums')
+        for artist in spotipy.artists:
+            if artist.name == self.login_info.username:
+                self.albums += artist.albums
 

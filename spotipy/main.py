@@ -30,7 +30,10 @@ if __name__ == '__main__':
     print(li4[:4])
     if 5 in li4:
         print('dasdac')
-        for x in li4:
-            print(x)
+    for x in li4:
+        print(x)
+
+    li4 += li
+    print(li4)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
