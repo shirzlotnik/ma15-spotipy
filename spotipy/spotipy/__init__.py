@@ -1,4 +1,5 @@
 from spotipy.config import *
+import logging
 
 
 def extract():
@@ -7,8 +8,11 @@ def extract():
 
     spotipy_db = SpotipyData()
 
+    logging.info('extracting data into spotipy db')
     extract(spotipy_db)
+    logging.info('adding values to albums')
     spotipy_db.process_albums()
+    logging.info('adding values to artists')
     spotipy_db.process_artists()
 
 
