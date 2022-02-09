@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Track:
     def __init__(self, id: str, name: str, popularity: int):
         self.id = id
