@@ -8,14 +8,12 @@ class Track:
 
 
 class Album:
-    def __init__(self, id: str, name: str, tracks: List[Track]):
+    def __init__(self, id: str, name: str):
         self.id = id
         self.name = name
-        self.tracks = tracks
 
 
 class Artist:
-    def __init__(self, id: str, name: str, albums: List[Album]):
+    def __init__(self, id: str, name: str):
         self.id = id
         self.name = name
-        self.albums = albums
