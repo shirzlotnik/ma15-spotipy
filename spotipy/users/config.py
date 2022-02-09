@@ -9,5 +9,5 @@ ARTIST = 'artist'
 ALBUMS = 'albums'
 PLAYLISTS = 'playlists'
 
-LIMIT = 5
+ANSWERS_LIMIT = 5
 
