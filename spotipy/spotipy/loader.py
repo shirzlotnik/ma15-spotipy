@@ -20,6 +20,8 @@ def parse_json_track(json_data: dict):
     album = Album(track_album[ID], track_album[NAME])
     artists = list(map(lambda artist: Artist(artist[ID], artist[NAME]), track_artists))
 
+    return update_models_parameters(track, album, artists)
+
 
 def update_models_parameters(track: Track, album: Album, artists: List[Artist]):
     track.add_album(album)
