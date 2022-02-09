@@ -14,7 +14,7 @@ from users.users import *
 
 
 def dump_users():
-    users__x = [User('shir', '1234'), User('shir-premium', 'bdhj', PREMIUM), ArtistUser('artist-shir', '4562143')]
+    users__x = [User('shir', '1234', ANONYMOUS), User('shir-premium', 'bdhj', PREMIUM), User('artist-shir', '4562143', ARTIST)]
     json_list = list(map(lambda user: user.to_json(), users__x))
     with open("/Users/shirzlotnik/spotipy/spotipy/spotipy/flask_app/users.json", encoding='utf-8', mode='w') as file:
         json.dump(json_list, file)

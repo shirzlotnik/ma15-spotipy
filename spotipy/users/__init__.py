@@ -3,6 +3,26 @@ from users.search import *
 from users.config import *
 
 
+def check_if_artist_has_user(artist_name, spotipy_db: SpotipyData, users):
+    for user in users:
+        if user.username == artist_name:
+            return user
+    return None
+
+
+def update_artist_users(spotipy_db: SpotipyData):
+    from flask_app.app import load_users
+    users = load_users()
+    for artist in spotipy_db.artists:
+        artist_user = check_if_artist_has_user(artist.name, spotipy_db, users)
+        if artist_user is None:
+            #create_acount
+            pass
+        else:
+            if artist_user.type is ARTIST:
+                artist_user.albums = artist.albums
+
+
 def get_all_artists(user: User, spotipy_db: SpotipyData):
     if user.type is ANONYMOUS:
         list(spotipy_db.artists)[:ANSWERS_LIMIT]
@@ -43,7 +63,7 @@ def get_album_tracks(user:User, spotipy_db: SpotipyData, album_id: str):
             if user.type is ANONYMOUS:
                 return list(album.tracks)[:ANSWERS_LIMIT]
             return list(album.tracks)
-        
+
     else:
         print(f'album id: {album_id} does not exist')
         return []
