@@ -30,15 +30,18 @@ class SpotipyData:
 
     def add_artists(self, artists: List[Artist]):
         for artist in artists:
-            if artist.id in self.artists.keys():
-                print(f'artist: {artist} already exist in db')
-            else:
+            if artist.id not in self.artists.keys():
                 self.artists[artist.id] = artist
                 logging.debug(f'successfully added artist {artist}')
 
-    #def process_data(self):
-
-    def process_albums_data(self):
+    def process_albums(self):
         for track in self.tracks.values():
-            if track.album_id in self.albums.keys():
-                Album(self.albums[track.album_id]).add_track(track.id)
+            if track.album.id in self.albums.keys():
+                self.albums[track.album.id].add_track(track)
+
+    def process_artists(self):
+        for album in self.albums.values():
+            for artist in album.artists:
+                if artist.id in self.artists.keys():
+                    self.artists[artist.id].add_album(album)
+

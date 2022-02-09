@@ -1,6 +1,7 @@
 from typing import List
 from spotipy.config import *
 
+
 class Artist:
     def __init__(self, id: str, name: str):
         self.id = id
@@ -12,13 +13,14 @@ class Artist:
     def add_album(self, album):
         self.albums.append(album)
 
-    def add_track(self, track):
-        self.tracks.append(track)
+    def get_tracks(self, track):
+        for album in self.albums:
+            self.tracks += album.tracks
 
     def to_string(self):
         str = f'Artist - id: {self.id}, name: {self.name}\n'
         for album in self.albums:
-            str += f'\tAlbum - id: {album.id}, name: {album.name}\n'
+            str += '\t' + album.to_string() + '\n'
 
         return str
 
@@ -28,9 +30,11 @@ class Album:
         self.id = id
         self.name = name
         self.tracks = []
+        self.artists = []
 
-    def add_track(self, track_id):
-        self.tracks_ids.append(track_id)
+    def add_track(self, track):
+        self.tracks.append(track)
+        self.artists += track.artists
 
     def to_string(self):
         str = f'Album - id: {self.id}, name: {self.name}\n'

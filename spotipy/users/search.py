@@ -1,6 +1,6 @@
-from models import *
+from spotipy.models import *
 from users import *
-from spotipy_data import *
+from spotipy.spotipy_data import *
 import logging
 
 
