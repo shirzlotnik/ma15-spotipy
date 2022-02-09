@@ -12,6 +12,8 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    logging.basicConfig(filename=LOGS_FILE_PATH, level=LOG_LEVEL, format=LOG_FORMAT)
+    logging.debug('hello')
     print_hi('PyCharm')
     file_path = '/Users/shirzlotnik/songs/song_0oHTvb0EVeYTUc0zscZphb.json'
     with open(file_path, 'r') as file:
