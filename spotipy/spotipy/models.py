@@ -68,12 +68,13 @@ class Playlist:
         self.limit = limit
 
     def add_track(self, track):
+        from users.exceptions import ReachedTrackLimit
         if self.limit:
             if len(self.tracks) > TRACKS_LIMIT:
                 print('you have reach the maximum amount of tracks in playlist, to add more consider upgrading to '
                       'premium')
                 logging.exception('user try to add invalid number of tracks to playlist')
-                return
+                raise ReachedTrackLimit
             
         self.tracks.append(track)
 

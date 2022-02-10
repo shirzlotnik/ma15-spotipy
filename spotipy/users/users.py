@@ -1,6 +1,7 @@
 from spotipy.models import *
 import logging
 from spotipy.spotipy_data import *
+from users.exceptions import *
 from users.config import *
 from spotipy.models import *
 import logging
@@ -27,6 +28,7 @@ class User:
         for playlist in self.playlists:
             if playlist.name is name:
                 logging.error('playlist name already exists')
+                raise PlaylistAlreadyExist
                 return
 
         if self.type is ANONYMOUS:
@@ -39,6 +41,11 @@ class User:
     def add_track_to_playlist(self, name, track):
         for playlist in self.playlists:
             if playlist.name is name:
-                playlist.add_track(track)
+                logging.debug('trying to add track to playlist')
+                try:
+                    playlist.add_track(track)
+                except ReachedTrackLimit:
+                    raise ReachedTrackLimit
+        logging.info(f'added track {track} to playlist {name} successfully')
 
 

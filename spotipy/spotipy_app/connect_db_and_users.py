@@ -1,6 +1,7 @@
 from spotipy.spotipy_data import *
 from users.users import *
 from users.config import *
+from users.exceptions import *
 import logging
 
 
@@ -33,6 +34,8 @@ class SpotipyApp:
         self.users = users
         self.connected = False
         self.current_connection = None
+        self.current_user: User
+        self.current_user = None
 
     def connect(self, connection: Connection):
         if connection.current_user is None:
@@ -46,6 +49,7 @@ class SpotipyApp:
             if user[USERNAME] == connection_user:
                 if user[PASSWORD] == connection_password:
                     self.current_connection = connection
+                    self.current_user = self.current_connection.current_user
                     self.connected = True
                     logging.debug('successfully connected to user')
                     print(f'hello, {connection_user}')
@@ -56,6 +60,26 @@ class SpotipyApp:
             else:
                 print(f'could not find user:{connection_user}')
                 logging.error(f'user {connection_user} does not exist in db')
+
+    def add_playlist_to_user(self, playlist):
+        if self.connected:
+            if self.current_user is not None:
+                logging.debug('trying to add playlist')
+                try:
+                    self.current_user.create_playlist('playlist1')
+                except PlaylistAlreadyExist:
+                    logging.exception('playlist already exists')
+                    raise PlaylistAlreadyExist
+
+                except ReachedPlaylistsLimit:
+                    logging.exception('reached playlists limit')
+                    raise ReachedPlaylistsLimit
+
+            else:
+                logging.exception('user not found')
+                print(f'user not found')
+        else:
+            print(f'connection not found')
 
 
 
