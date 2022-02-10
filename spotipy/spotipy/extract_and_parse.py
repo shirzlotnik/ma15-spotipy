@@ -1,6 +1,5 @@
 from spotipy.config import *
 from spotipy.models import *
-from spotipy.spotipy_data import SpotipyData
 import glob
 from spotipy.spotipy_data import *
 import logging

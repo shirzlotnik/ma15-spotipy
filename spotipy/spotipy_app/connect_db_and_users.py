@@ -12,9 +12,13 @@ class Connection:
 
     def valid_user(self, users):
         for user in users:
-            if user[USERNAME] is self.username:
-                if user[PASSWORD] is self.password:
-                    self.current_user = User(user[USERNAME], user[PASSWORD], user[TYPE], user[PLAYLISTS], user[ALBUMS])
+            if user[USERNAME] == self.username:
+                if user[PASSWORD] == self.password:
+                    if ALBUMS in user.keys():
+                        self.current_user = User(user[USERNAME], user[PASSWORD], user[TYPE], user[PLAYLISTS], user[ALBUMS])
+                    else:
+                        self.current_user = User(user[USERNAME], user[PASSWORD], user[TYPE], user[PLAYLISTS])
+
                     logging.debug('successfully validation to user')
 
                 else:
@@ -36,21 +40,22 @@ class SpotipyApp:
             print(f'invalid connection')
             return
 
-        connection_user = connection.user.username
-        connection_password = connection.user.password
+        connection_user = connection.username
+        connection_password = connection.password
         for user in self.users:
-            if user.username == connection_user:
-                if user.password == connection_password:
+            if user[USERNAME] == connection_user:
+                if user[PASSWORD] == connection_password:
                     self.current_connection = connection
                     self.connected = True
                     logging.debug('successfully connected to user')
-                    print(f'hello, {self.username}')
+                    print(f'hello, {connection_user}')
+                    return
                 else:
-                    print(f'password for user: {self.username} is incorrect')
+                    print(f'password for user: {connection_user} is incorrect')
                     logging.exception('user entered wrong password')
             else:
-                print(f'could not find user:{self.username}')
-                logging.error(f'user {user.username} does not exist in db')
+                print(f'could not find user:{connection_user}')
+                logging.error(f'user {connection_user} does not exist in db')
 
 
 

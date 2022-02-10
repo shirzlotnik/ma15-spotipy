@@ -15,14 +15,13 @@ def extract():
     logging.info('adding values to artists')
     spotipy_db.process_artists()
 
-
-
+    '''
     for track in spotipy_db.tracks.values():
         print(track.to_string())
-'''
+
     for album in spotipy_db.albums.values():
         print(album.to_string())
 
     for artist in spotipy_db.artists.values():
         print(artist.to_string())
-'''
+    '''

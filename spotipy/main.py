@@ -5,7 +5,8 @@ from spotipy.config import *
 from spotipy import extract
 from spotipy.config import *
 from flask_app import run
-from flask_app.app import load_users
+from spotipy_app import connect
+
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -17,7 +18,6 @@ if __name__ == '__main__':
     logging.basicConfig(filename=LOGS_FILE_PATH, level=LOG_LEVEL, format=LOG_FORMAT)
 
     extract()
+    connect('shir', '1234')
     #run()
-    for user in load_users():
-        print(user)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
