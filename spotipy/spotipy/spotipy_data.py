@@ -6,7 +6,6 @@ import json
 from collections import defaultdict
 from typing import List
 
-
 class SpotipyData:
     def __init__(self):
         self.tracks = {}

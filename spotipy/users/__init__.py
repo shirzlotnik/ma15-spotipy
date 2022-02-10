@@ -3,7 +3,7 @@ from users.search import *
 from users.config import *
 
 
-def check_if_artist_has_user(artist_name, spotipy_db: SpotipyData, users):
+def check_if_artist_has_user(artist_name, users):
     for user in users:
         if user.username == artist_name:
             return user

@@ -4,9 +4,10 @@ from spotipy.spotipy_data import SpotipyData
 import glob
 from spotipy.spotipy_data import *
 import logging
+import json
 
 
-def extract(spotipy_db: SpotipyData):
+def extract(spotipy_db):
     logging.info('extracting data from songs directory')
     json_files_paths = glob.glob(SONGS_PATH_GLOB)
     for json_file_path in json_files_paths:
