@@ -23,3 +23,10 @@ class UserNotFound(NameError):
         pass
 
 
+class PlaylistNotFound(ModuleNotFoundError):
+    def __init__(self):
+        pass
+
+
+
+

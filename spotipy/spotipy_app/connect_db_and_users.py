@@ -69,17 +69,36 @@ class SpotipyApp:
                     self.current_user.create_playlist('playlist1')
                 except PlaylistAlreadyExist:
                     logging.exception('playlist already exists')
-                    raise PlaylistAlreadyExist
-
+                    print(f'type: {PlaylistAlreadyExist} description: playlist {playlist.name} already exists')
+                    return False
                 except ReachedPlaylistsLimit:
                     logging.exception('reached playlists limit')
-                    raise ReachedPlaylistsLimit
-
+                    print(f'type: {ReachedPlaylistsLimit} description: you have reached your playlists max capacity')
+                    return False
             else:
                 logging.exception('user not found')
                 print(f'user not found')
+                return False
         else:
             print(f'connection not found')
+            return False
+
+        return True
+
+    def add_track_to_playlist(self, name, track: Track):
+        logging.debug('trying to add track to a playlist')
+        try:
+            self.current_user.add_track_to_playlist(name, track)
+        except ReachedTrackLimit:
+            print(f'type: {ReachedTrackLimit}, description: you have reached max track for playlist')
+            return False
+        except PlaylistNotFound:
+            print(f'type: {PlaylistNotFound}, description: could not find playlist {name}')
+            return False
+
+        logging.info('track added successfully')
+        return True
+
 
 
 

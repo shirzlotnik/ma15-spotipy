@@ -14,16 +14,16 @@ def connect(username, password):
 
 
 def add_playlist(playlist, spotipy_app: SpotipyApp):
-    from spotipy.models import Playlist
-    from users.exceptions import ReachedPlaylistsLimit
+    is_added = spotipy_app.add_playlist_to_user(playlist)
+    if is_added:
+        logging.info('playlist added successfully')
+    else:
+        logging.exception('could not add playlist')
 
-    try:
-        spotipy_app.add_playlist_to_user(playlist)
-    except PlaylistAlreadyExist:
-        print(f'type: {PlaylistAlreadyExist} description: playlist {playlist.name} already exists')
-        return
-    except ReachedPlaylistsLimit:
-        print(f'type: {ReachedPlaylistsLimit} description: you have reached your playlists max capacity')
-        return
 
-    logging.debug('playlist added successfully')
+def add_track_to_playlist(name, track, spotipy_app: SpotipyApp):
+    is_added = spotipy_app.add_track_to_playlist(name, Track)
+    if is_added:
+        logging.info('track added successfully')
+    else:
+        logging.exception('could not add track to playlist')

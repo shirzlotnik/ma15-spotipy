@@ -38,7 +38,7 @@ class User:
 
         self.playlists.append(playlist)
 
-    def add_track_to_playlist(self, name, track):
+    def add_track_to_playlist(self, name, track: Track):
         for playlist in self.playlists:
             if playlist.name is name:
                 logging.debug('trying to add track to playlist')
@@ -46,6 +46,9 @@ class User:
                     playlist.add_track(track)
                 except ReachedTrackLimit:
                     raise ReachedTrackLimit
+            else:
+                logging.error('playlist not found')
+                raise PlaylistNotFound
         logging.info(f'added track {track} to playlist {name} successfully')
 
 
