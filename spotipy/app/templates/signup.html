@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+    <form action="/signup" method="POST">
+        <p>sign up here</p>
+        <p>username</p>
+  <input name="username" placeholder="username">
+        <p>password</p>
+  <input type="password" name="password" placeholder="password">
+        <p>rewrite password</p>
+  <input type="password" name="rewritten_password" placeholder="password">
+  <p>select subscription</p>
+  <div>
+  <input type="checkbox" id="anonymous" name="subscription" value="anonymous" checked>
+  <label for="anonymous">Free trial</label>
+  </div>
+  <div>
+    <input type="checkbox" id="premium" name="subscription" value="premium">
+    <label for="premium">Premium</label>
+  </div>
+  <div>
+    <input type="checkbox" id="artist" name="subscription" value="artist">
+    <label for="artist">Artist</label>
+  </div>
+        <p></p>
+  <input type="submit" value="Sign up">
+</form>
+</body>
+</html>

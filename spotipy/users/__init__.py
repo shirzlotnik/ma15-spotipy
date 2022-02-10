@@ -11,7 +11,7 @@ def check_if_artist_has_user(artist_name, users):
 
 
 def update_artist_users(spotipy_db: SpotipyData):
-    from flask_app.app import load_users
+    from app.app import load_users
     users = load_users()
     for artist in spotipy_db.artists:
         artist_user = check_if_artist_has_user(artist.name, spotipy_db, users)

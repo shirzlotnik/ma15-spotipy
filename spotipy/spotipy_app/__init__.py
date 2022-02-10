@@ -3,7 +3,7 @@ from spotipy_app.connect_db_and_users import *
 
 def connect(username, password):
     from spotipy.spotipy_data import SpotipyData
-    from flask_app.app import load_users
+    from app.app import load_users
     spotipy_db = SpotipyData()
     users = load_users()
     connection = Connection(username, password)
@@ -20,9 +20,12 @@ def add_playlist(playlist_name, spotipy_app: SpotipyApp):
     else:
         logging.exception('could not add playlist')
 
+    '''
     users_playlists = list(spotipy_app.current_user.playlists)
     for playlist in users_playlists:
         print(playlist.to_string())
+
+    '''
 
 
 def add_track_to_playlist(playlist_name, track, spotipy_app: SpotipyApp):
@@ -32,6 +35,8 @@ def add_track_to_playlist(playlist_name, track, spotipy_app: SpotipyApp):
     else:
         logging.exception('could not add track to playlist')
 
+    '''
     users_playlists = list(spotipy_app.current_user.playlists)
     for playlist in users_playlists:
         print(playlist.to_string())
+    '''

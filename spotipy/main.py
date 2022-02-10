@@ -1,19 +1,18 @@
 import json
 import logging
 import glob
+
+import app.app
 from spotipy.config import *
 from spotipy import extract, get_random_track
 from spotipy.config import *
-from flask_app import run
+from app import run
 from spotipy_app import connect, add_playlist, add_track_to_playlist
+from consolemenu import *
+from consolemenu.items import *
+from os import system
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     logging.basicConfig(filename=LOGS_FILE_PATH, level=LOG_LEVEL, format=LOG_FORMAT)
 
@@ -25,5 +24,6 @@ if __name__ == '__main__':
     add_playlist(playlist_name, spotipy_app)
     add_track_to_playlist(playlist_name, track, spotipy_app)
 
-    #run()
+
+    run()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
