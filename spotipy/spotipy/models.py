@@ -78,3 +78,12 @@ class Playlist:
             
         self.tracks.append(track)
 
+    def to_string(self):
+        str = f'Playlist -\nname: {self.name}\n'
+        for track in self.tracks:
+            str += f'\t{track.to_string()}'
+        if self.limit:
+            str += f'tracks limit: {TRACKS_LIMIT}\n'
+
+        return str
+

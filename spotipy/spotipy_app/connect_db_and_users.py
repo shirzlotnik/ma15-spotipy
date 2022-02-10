@@ -61,15 +61,15 @@ class SpotipyApp:
                 print(f'could not find user:{connection_user}')
                 logging.error(f'user {connection_user} does not exist in db')
 
-    def add_playlist_to_user(self, playlist):
+    def add_playlist_to_user(self, playlist_name):
         if self.connected:
             if self.current_user is not None:
                 logging.debug('trying to add playlist')
                 try:
-                    self.current_user.create_playlist('playlist1')
+                    self.current_user.create_playlist(playlist_name)
                 except PlaylistAlreadyExist:
                     logging.exception('playlist already exists')
-                    print(f'type: {PlaylistAlreadyExist} description: playlist {playlist.name} already exists')
+                    print(f'type: {PlaylistAlreadyExist} description: playlist {playlist_name} already exists')
                     return False
                 except ReachedPlaylistsLimit:
                     logging.exception('reached playlists limit')

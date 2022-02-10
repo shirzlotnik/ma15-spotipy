@@ -13,17 +13,25 @@ def connect(username, password):
     return spotipy_app
 
 
-def add_playlist(playlist, spotipy_app: SpotipyApp):
-    is_added = spotipy_app.add_playlist_to_user(playlist)
+def add_playlist(playlist_name, spotipy_app: SpotipyApp):
+    is_added = spotipy_app.add_playlist_to_user(playlist_name)
     if is_added:
         logging.info('playlist added successfully')
     else:
         logging.exception('could not add playlist')
 
+    users_playlists = list(spotipy_app.current_user.playlists)
+    for playlist in users_playlists:
+        print(playlist.to_string())
 
-def add_track_to_playlist(name, track, spotipy_app: SpotipyApp):
-    is_added = spotipy_app.add_track_to_playlist(name, Track)
+
+def add_track_to_playlist(playlist_name, track, spotipy_app: SpotipyApp):
+    is_added = spotipy_app.add_track_to_playlist(playlist_name, track)
     if is_added:
         logging.info('track added successfully')
     else:
         logging.exception('could not add track to playlist')
+
+    users_playlists = list(spotipy_app.current_user.playlists)
+    for playlist in users_playlists:
+        print(playlist.to_string())

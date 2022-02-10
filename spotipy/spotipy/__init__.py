@@ -1,10 +1,10 @@
 from spotipy.config import *
 import logging
+from spotipy.spotipy_data import SpotipyData
 
 
 def extract():
     from spotipy.extract_and_parse import extract
-    from spotipy.spotipy_data import SpotipyData
 
     spotipy_db = SpotipyData()
 
@@ -25,3 +25,9 @@ def extract():
     for artist in spotipy_db.artists.values():
         print(artist.to_string())
     '''
+
+    return spotipy_db
+
+
+def get_random_track(spotipy_db: SpotipyData):
+    return list(spotipy_db.tracks.values())[0]

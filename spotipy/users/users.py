@@ -29,14 +29,18 @@ class User:
             if playlist.name is name:
                 logging.error('playlist name already exists')
                 raise PlaylistAlreadyExist
-                return
 
-        if self.type is ANONYMOUS:
+        playlist = None
+        if self.type == ANONYMOUS:
             playlist = Playlist(name)
-        elif self.type is PREMIUM:
+        elif self.type == PREMIUM:
             playlist = Playlist(name, False)
 
-        self.playlists.append(playlist)
+        if playlist is not None:
+            self.playlists.append(playlist)
+            logging.info('playlist added successfully')
+        else:
+            logging.error(f'problem with playlist {name}')
 
     def add_track_to_playlist(self, name, track: Track):
         for playlist in self.playlists:
