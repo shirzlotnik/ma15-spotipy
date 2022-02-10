@@ -1,10 +1,9 @@
-from spotipy.models import *
-from spotipy.extract_and_parse import *
-import glob
 import logging
-import json
-from collections import defaultdict
 from typing import List
+from spotipy.models import *
+
+from spotipy.extract_and_parse import *
+
 
 class SpotipyData:
     def __init__(self):
@@ -43,4 +42,3 @@ class SpotipyData:
             for artist in album.artists:
                 if artist.id in self.artists.keys():
                     self.artists[artist.id].add_album(album)
-

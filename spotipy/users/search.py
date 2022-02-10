@@ -1,7 +1,5 @@
-from spotipy.models import *
-from users import *
 from spotipy.spotipy_data import *
-import logging
+from users import *
 
 
 def get_all_artists(spotipy_db: SpotipyData):

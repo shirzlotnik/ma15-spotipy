@@ -1,9 +1,7 @@
-from spotipy.config import *
-from spotipy.models import *
+import json
+import logging
 import glob
 from spotipy.spotipy_data import *
-import logging
-import json
 
 
 def extract(spotipy_db):

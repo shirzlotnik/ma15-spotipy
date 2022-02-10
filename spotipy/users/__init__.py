@@ -1,9 +1,11 @@
+from app.app import load_users
 from users.users import *
 from users.search import *
 from users.config import *
 
 
-def check_if_artist_has_user(artist_name, users):
+def check_if_artist_has_user(artist_name):
+    users = load_users()
     for user in users:
         if user.username == artist_name:
             return user
@@ -14,7 +16,7 @@ def update_artist_users(spotipy_db: SpotipyData):
     from app.app import load_users
     users = load_users()
     for artist in spotipy_db.artists:
-        artist_user = check_if_artist_has_user(artist.name, spotipy_db, users)
+        artist_user = check_if_artist_has_user(artist.name, spotipy_db)
         if artist_user is None:
             #create_acount
             pass

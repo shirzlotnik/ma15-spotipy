@@ -1,17 +1,15 @@
-from spotipy.models import *
 import logging
-from spotipy.spotipy_data import *
-from users.exceptions import *
+
+from spotipy.models import *
 from users.config import *
-from spotipy.models import *
-import logging
+from users.exceptions import *
 
 
 class User:
-    def __init__(self, username, password, type, playlists=[], albums=[]):
+    def __init__(self, username, password, user_type, playlists=[], albums=[]):
         self.username = username
         self.password = password
-        self.type = type
+        self.type = user_type
         self.playlists = playlists
         self.albums = albums
 

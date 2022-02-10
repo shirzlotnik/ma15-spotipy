@@ -7,7 +7,8 @@ from flask_login import (
     login_required,
     login_user,
 )
-from users.users import *
+from users.users import User
+import json
 
 
 def dump_users():
@@ -35,7 +36,7 @@ def add_user(user):
 def check_if_user_exist(username):
     users = load_users()
     for user in users:
-        if user[USERNAME] == username:
+        if dict(user)[USERNAME] == username:
             return True
     return False
 
@@ -58,10 +59,6 @@ def create_app():
 
     dump_users()
     users = load_users()
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.get(user_id)
 
     @app.route('/')
     def index():
@@ -100,23 +97,22 @@ def create_app():
 
     @app.route('/signup', methods=['GET', 'POST'])
     def signup_page():
-        signup_form = request.form
         # POST: Sign user in
         if request.method == 'POST':
             # Get Form Fields
             name = request.form.get('name')
             password = request.form.get('password')
             rewritten_password = request.form.get('rewritten_password')
-            type = request.form.get('subscription')
+            subscription_type = request.form.get('subscription')
             if password != rewritten_password:
                 flash('the passwords do not match')
                 return redirect(url_for('signup_page'))
-            if check_if_user_exist(name, users):
+            if check_if_user_exist(name):
                 flash('A user exists with that email address.')
                 return redirect(url_for('signup_page'))
 
             else:
-                new_user = User(name, password, type)
+                new_user = User(name, password, subscription_type)
                 add_user(new_user)
 
             return redirect(url_for('login_page'))

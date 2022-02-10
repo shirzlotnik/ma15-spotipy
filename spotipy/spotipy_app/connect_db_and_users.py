@@ -1,8 +1,8 @@
-from spotipy.spotipy_data import *
-from users.users import *
+import logging
+from spotipy.spotipy_data import SpotipyData
 from users.config import *
 from users.exceptions import *
-import logging
+from users.users import *
 
 
 class Connection:
